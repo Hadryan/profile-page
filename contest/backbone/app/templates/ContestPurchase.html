@@ -1,0 +1,19 @@
+<div id="contest-purchase" class="setup-row-contest">
+	<div class="control-group">
+		<div class="setup-row-left-sub">Identifier</div>	
+		<div class="setup-row-right">	
+			<select id="select-identifier" name="meta[content][type]">
+				<option value="text" <%= (purchase.type == 'text') ? 'selected' : '' %>>Text</option>
+				<option value="image" <%= (purchase.type == 'image') ? 'selected' : '' %>>Image</option>
+			</select>
+		</div>
+	</div>
+	<div class="control-group">
+		<div class="setup-row-left-sub">Name of Identifier</div>	
+		<div class="setup-row-right">
+			<input id="input-identifier" type="text" name="meta[content][name]" 
+					class="setup-field-1" placeholder="E.g Receipt Number / Code" 
+					value="<%= purchase.name %>" required />
+		</div>
+	</div>		
+</div>

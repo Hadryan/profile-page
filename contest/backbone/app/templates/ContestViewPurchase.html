@@ -1,0 +1,27 @@
+<h2>Step 1. Upload Image</h2>
+<div id="quiz-box">
+	<% if( type == 'text' ) { %> 
+    <div id="quiz-box">
+    	<div id="text-upload">
+        	<input name="user_value" type="text" id="upload-text-field" placeholder="<%= name %>" />
+            <div class="clear"></div>
+        </div>
+    </div>
+    <% } else { %>
+	<div id="image-upload" style="height:37px;">
+		<div id="image-upload-left"><%= name %></div>
+		<div id="image-upload-right" style="position: relative;">
+			<div class="setup-image">
+				<button class="select-image" type="button"></button>
+				
+				<input id="purchase-img" type="file" style="display:none;">
+				
+				<div class="uploaded-image">
+					<div class="ajax-spin" style="right:74px"></div>
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<% } %>
+</div>

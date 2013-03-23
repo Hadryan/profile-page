@@ -1,0 +1,123 @@
+<div id="contest-quiz" class="setup-row-contest">
+	<div class="control-group question">
+		<div class="setup-row-left-sub">
+			<label>Question</label>
+		</div>
+		<div class="setup-row-right">
+			<input type="text" name="meta[content][question]" class="setup-field-1" placeholder="Why is brand X the best drink in the world ?" value="<%= quiz.question %>" required />
+			<div class="sub-label counter-limiter">
+				Character limit <strong>100</strong>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="control-group">
+		<div>
+			<div class="setup-row-left-sub">Is there a Youtube videos for this quiz ?</div>	
+			<div class="setup-row-right">	
+				<input type="radio" name="meta[content][thumbnail][type]" class="quiz-field" value="video" <%= (quiz.thumbnail.type == 'video') ? 'checked' : '' %> />Yes	
+				<input type="radio" name="meta[content][thumbnail][type]" class="quiz-field" value="pic" <%= (quiz.thumbnail.type == 'pic') ? 'checked' : '' %> />No		
+			</div>
+		</div>
+	</div>
+	<div id="setup-quiz-field" class="control-group <%= (quiz.thumbnail.type == 'video') ? 'video' : 'pic' %>">
+		<div class="quiz-pic">
+			<div class="setup-row-left-sub" style="position: relative; text-align: center">
+				<div class="uploaded-image">
+					<div class="ajax-spin"></div>
+					<img src="<%= quiz.thumbnail.value.pic.url %>" height="60" />
+				</div>
+			</div>
+			<div class="setup-row-right" style="float: left">
+				<label style="display: block; margin: 5px 0;">Choose image on your computer</label>
+				<div class="setup-coloumn">
+					<input type="text" name="meta[content][thumbnail][value][pic][name]" class="setup-field-2 img-name" value="<%= quiz.thumbnail.value.pic.name %>" readonly="readonly" />
+				</div>
+				<div class="setup-image">
+					<button class="select-image" type="button"></button>
+					<input id="quiz-pic-img" type="file" style="display:none;" />
+					<input type="hidden" name="meta[content][thumbnail][value][pic][url]" value="<%= quiz.thumbnail.value.pic.url %>" />
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<div class="quiz-video">
+			<div class="setup-row-left-sub" style="text-align: center">
+				Youtube URL
+			</div>
+			<div class="setup-row-right" style="float: left">
+				<input type="text" name="meta[content][thumbnail][value][video][url]" class="setup-field-1" value="<%= quiz.thumbnail.value.video.url %>" />
+			</div>
+			<div class="clear"></div>
+			<div class="setup-row-left-sub" style="position: relative; text-align: center">
+				<div class="uploaded-image">
+					<div class="ajax-spin"></div>
+					<img src="<%= quiz.thumbnail.value.video.img %>" height="60" />
+				</div>
+			</div>
+			<div class="setup-row-right" style="float: left">
+				<label style="display: block; margin: 5px 0;">Choose image on your computer</label>
+				<div class="setup-coloumn">
+					<input type="text" name="meta[content][thumbnail][value][video][name]" class="setup-field-2 img-name" value="<%= quiz.thumbnail.value.video.name %>" readonly="readonly" />
+				</div>
+				<div class="setup-image">
+					<button class="select-image" type="button"></button>
+					<input id="quiz-video-img" type="file" style="display:none;" />
+					
+					<input type="hidden" name="meta[content][thumbnail][value][video][img]" value="<%= quiz.thumbnail.value.video.img %>" />
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="control-group choices" style="margin-left: 20px;">
+		<h5 style="margin-bottom: 10px; font-weight: bold">Choices</h5>
+		<ul>
+			<li>
+				<label>A</label>
+				<input type="text" name="meta[content][choices][a]" class="setup-field-1" value="<%= quiz.choices.a %>" />
+			</li>
+			<li>
+				<label>B</label>
+				<input type="text" name="meta[content][choices][b]" class="setup-field-1" value="<%= quiz.choices.b %>" />
+			</li>
+			<li>
+				<label>C</label>
+				<input type="text" name="meta[content][choices][c]" class="setup-field-1" value="<%= quiz.choices.c %>" />
+			</li>
+			<li>
+				<label>D</label>
+				<input type="text" name="meta[content][choices][d]" class="setup-field-1" value="<%= quiz.choices.d %>" />
+			</li>
+			<li>
+				<label>E</label>
+				<input type="text" name="meta[content][choices][e]" class="setup-field-1" value="<%= quiz.choices.e %>" />
+			</li>
+		</ul>
+	</div>
+	<div class="control-group question">
+		<div class="setup-row-left-sub">Answer is</div>
+		<div class="setup-row-right">
+			<select id="choice-answer" name="meta[content][answer]" required>
+				<option value="a" <%= (quiz.answer == 'a') ? 'selected' : '' %>>A</option>
+				<option value="b" <%= (quiz.answer == 'b') ? 'selected' : '' %>>B</option>
+				<option value="c" <%= (quiz.answer == 'c') ? 'selected' : '' %>>C</option>
+				<option value="d" <%= (quiz.answer == 'd') ? 'selected' : '' %>>D</option>
+				<option value="e" <%= (quiz.answer == 'e') ? 'selected' : '' %>>E</option>
+			</select>
+		</div>
+	</div>
+	<div class="control-group question">
+		<div class="setup-row-left-sub">Force Correct Answer</div>
+		<div class="setup-row-right">
+			<select name="meta[content][force][type]" class="select-field-toggle">
+				<option value="1" <%= (quiz.force.type)  ? 'selected' : '' %>>Yes</option>
+				<option value="0" <%= (!quiz.force.type) ? 'selected' : '' %>>No</option>
+			</select>
+			<textarea name="meta[content][force][value]" class="setup-textarea-1" placeholder="Key in educational message here" style="margin-top: 10px;"><%= quiz.force.value %></textarea>
+			<div class="sub-label counter-limiter">
+				Character limit <strong>400</strong>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>

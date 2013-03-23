@@ -1,0 +1,82 @@
+<div id="admin-wrapper">
+	<h1>Click "Download" to get the list of contest participants in an Excel file</h1>
+	<% if( !_.isNull(recent) ){ var recentObj = recent.toJSON() %>
+	<h2>Current</h2>
+	<div class="clear"></div>
+		<div class="download-list">
+			<strong>01.</strong> <%= recentObj.title %>, Start date: <%= recentObj.start %>
+			<div class="down-right">
+				<a href="<%= recent.baseUrl %>/api/download/<%= recent.hash %>" class="download">download</a>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="download-table">
+			<div class="download-table-header">
+				<div class="download-table-coloumn-1">No.</div>
+				<div class="download-table-coloumn-2">Name</div>
+				<div class="download-table-coloumn-3">Email</div>
+				<div class="download-table-coloumn-4">Country</div>
+				<div class="download-table-coloumn-5">Mailing Address</div>
+				<div class="download-table-coloumn-6">Blog URL</div>
+				<div class="download-table-coloumn-7"></div>
+				<div class="clear"></div>
+			</div>
+			<% if( !_.isNull(contestants) ){ %>
+				<% _.each(contestants.toJSON(), function(e,i){ var index = i+1; var number = index.toString(); %> 
+			        <div class="download-table-body">
+			        	<div class="download-table-coloumn-1 column"><%= (number.length < 2) ? '0' + number : number %></div>
+			            <div class="download-table-coloumn-2 column"><%= e.name %></div>
+			            <div class="download-table-coloumn-3 column"><%= e.email %></div>
+			            <div class="download-table-coloumn-4 column"><%= e.country %></div>
+			            <div class="download-table-coloumn-5 column"><%= e.address %></div>
+			            <div class="download-table-coloumn-6 column" style="width:220px"><%= (e.blog) ? e.blog : 'N/A'  %></div>
+			            <div class="download-table-coloumn-7 column">
+			            	<a href="#" class="delete" data-id="<%= i %>">Delete</a>
+			            </div>
+			        	<div class="clear"></div>
+		            	<div class="ajax-spin"></div>
+			        </div>
+				<% }) %>
+			<% } %>
+		</div>
+	<% } %>
+	
+	<div class="clear" style="margin-top:30px;"></div>
+	
+	<h2 style="">Archives</h2>
+	<div id="filter-archive">
+		Filter
+		<select id="filter-by-month">
+			<option value="">Month</option>
+			<option value="01" <%= contests.selected == '01' ? 'selected' : '' %>>January</option>
+			<option value="02" <%= contests.selected == '02' ? 'selected' : '' %>>February</option>
+			<option value="03" <%= contests.selected == '03' ? 'selected' : '' %>>March</option>
+			<option value="04" <%= contests.selected == '04' ? 'selected' : '' %>>April</option>
+			<option value="05" <%= contests.selected == '05' ? 'selected' : '' %>>May</option>
+			<option value="06" <%= contests.selected == '06' ? 'selected' : '' %>>Juny</option>
+			<option value="07" <%= contests.selected == '07' ? 'selected' : '' %>>July</option>
+			<option value="08" <%= contests.selected == '08' ? 'selected' : '' %>>August</option>
+			<option value="09" <%= contests.selected == '09' ? 'selected' : '' %>>September</option>
+			<option value="10" <%= contests.selected == '10' ? 'selected' : '' %>>October</option>
+			<option value="11" <%= contests.selected == '11' ? 'selected' : '' %>>November</option>
+			<option value="12" <%= contests.selected == '12' ? 'selected' : '' %>>December</option>
+		</select>
+		<select id="filter-by-year">
+			<option value="">Year</option>
+			<option value="2012"<%= contests.selected == '2012' ? 'selected' : '' %>>2012</option>
+			<option value="2013"<%= contests.selected == '2013' ? 'selected' : '' %>>2013</option>
+		</select>
+	</div>
+	<div class="clear"></div>
+	<% if( !_.isUndefined(contests) ){ %>
+		<% _.each(contests.toJSON(), function(e,i){ var index = i+1; var number = index.toString(); %> 
+			<div class="download-list">
+				<strong><%= (number.length < 2) ? '0' + number : number %>.</strong> <%= e.title %>, Start date: <%= e.start %>
+				<div class="down-right">
+					<a href="<%= e.baseUrl %>/api/download/<%= e.hash %>" class="download">download</a>
+				</div>
+				<div class="clear"></div>
+			</div>
+		<% }) %>
+	<% } %>
+</div>

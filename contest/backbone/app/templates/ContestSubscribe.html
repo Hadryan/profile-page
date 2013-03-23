@@ -1,0 +1,123 @@
+<div id="subscribe-wrapper">
+	<h2>Step 2 . "Subscribe" to all our channels below</h2>
+	<% 
+	var alphabets = ['a','b','c','d','e']; var index = 0;
+	_.each(meta.subscribes, function(e,i){ %>
+		
+		<% if( i == 'facebook' && e.type != '0' ) { %>
+		<div class="subscribe-row">
+			<span><strong>(<%= alphabets[index] %>)</strong> Facebook</span>
+			<iframe 
+				src="http://www.facebook.com/plugins/like.php?href=<%= e.value %>"
+	        	scrolling="no" frameborder="0"
+	        	style="border:none; width:450px; height:24px">
+        	</iframe>
+		</div>
+		<% } else if( i == 'twitter' && e.type != '0' ) { %>
+		<div class="subscribe-row">
+			<span><strong>(<%= alphabets[index] %>)</strong> Twitter</span>
+			<a href="https://twitter.com/<%= e.value %>" class="twitter-follow-button" data-show-count="false" data-lang="en">Follow <%= e.value %></a>
+			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		</div>
+		<% } else if( i == 'youtube' && e.type != '0' ) { %>
+		<div class="subscribe-row">
+			<span><strong>(<%= alphabets[index] %>) </strong>Youtube</span>
+			<div id="youtube-area">
+				<iframe src="http://www.youtube.com/subscribe_widget?p=<%= e.value %>" 
+						style="overflow: hidden; height: 100px; width: 300px; border: 0;" 
+						scrolling="no" frameBorder="0"></iframe>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<% } else if( i == 'google_plus' && e.type != '0' ) { %>
+		<div class="subscribe-row">
+			<span><strong>(<%= alphabets[index] %>)</strong> Google+</span>
+			<!-- Place this tag where you want the +1 button to render. -->
+			<div class="g-plusone" data-annotation="inline" data-width="300" data-href="<%= e.value %>"></div>
+			<!-- Place this tag after the last +1 button tag. -->
+			<script type="text/javascript">
+			  (function() {
+			    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+			    po.src = 'https://apis.google.com/js/plusone.js';
+			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+			  })();
+			</script>
+		</div>
+		<% } %>
+		
+		<% index++ %>
+		
+	<% }) %>
+
+	<h2>Step 3. Fill up the form below</h2>
+	<form id="contest-step-2" onsubmit="false">
+		<div id="quiz-box">
+			<% if( _.indexOf(meta.fields, 'name') > -1 ) { %>
+			<div class="quizfield-row">
+				<div class="quizfield-row-left">Name</div>
+				<div class="quizfield-row-right">
+					<input name="name" type="text" class="quiz-textfield" required />
+				</div>
+				<div class="clear"></div>
+			</div>
+			<% } %>
+			
+			<% if( _.indexOf(meta.fields, 'email') > -1 ) { %>
+			<div class="quizfield-row">
+				<div class="quizfield-row-left">Email</div>
+				<div class="quizfield-row-right">
+					<input name="email" type="email" class="quiz-textfield" required />
+				</div>
+				<div class="clear"></div>
+			</div>
+			<% } %>
+			
+			<div class="quizfield-row">
+				<div class="quizfield-row-left">Country</div>
+				<div class="quizfield-row-right">
+					<select name="country" class="quiz-select" required>
+						<option value="singapore">Singapore</option>
+					</select>
+				</div>
+				<div class="clear"></div>
+			</div>
+			
+			<% if( _.indexOf(meta.fields, 'address') > -1 ) { %>
+			<div class="quizfield-row">
+				<div class="quizfield-row-left">Mailing Address</div>
+				<div class="quizfield-row-right">
+					<textarea name="address" cols="" rows="" class="quiz-textarea" required></textarea>
+				</div>			
+				<div class="clear"></div>
+			</div>
+			<% } %>
+			
+			<% if( _.indexOf(meta.fields, 'blog') > -1) { %>
+			<div class="quizfield-row">
+				<div class="quizfield-row-left">
+					Do you maintain your own blog or website?
+				</div>
+				<div class="quizfield-row-right">
+					<select class="select-field-toggle">
+						<option value="1">Yes</option>
+						<option value="0">No</option>
+					</select>
+					<input name="blog" type="url" placeholder="Enter your Blog URL" class="quiz-textfield2" required />
+				</div>
+				<div class="clear"></div>
+			</div>
+			<% } %>
+		</div>
+		<div id="contest-bottom">
+			<div id="contest-message">
+				<!-- MESSAGE HERE -->
+			</div>
+			<div class="contest-bottom-right">
+				<input type="hidden" name="user_value" value="<%= window.user_value %>" />
+				<input type="hidden" name="contest_id" value="<%= ID %>" />
+				<button class="next" type="submit">Next</button>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,31 @@
+
+// START AND END TYPE VARCHAR/DATE
+// START : '03/17/2013'
+// END   : '03/20/2013'
+
+SELECT 
+    UNIX_TIMESTAMP(date(NOW())) as NOW,
+    UNIX_TIMESTAMP(STR_TO_DATE(`start`, '%m/%d/%Y')) as START,
+    UNIX_TIMESTAMP(STR_TO_DATE(`end`, '%m/%d/%Y')) as END,
+    date(NOW()) as now, start, end
+FROM `contests` 
+WHERE 
+	UNIX_TIMESTAMP(STR_TO_DATE(`start`, '%m/%d/%Y')) <= UNIX_TIMESTAMP(date(NOW())) AND
+	UNIX_TIMESTAMP(STR_TO_DATE(`end`, '%m/%d/%Y')) >= UNIX_TIMESTAMP(date(NOW()))
+
+// START AND END TYPE INT
+
+// START : 1363453200
+// END   : 1363712400
+
+SELECT 
+	FROM_UNIXTIME(`start`, '%m/%d/%Y') as START,
+	FROM_UNIXTIME(`end`, '%m/%d/%Y') as END
+FROM `contests` 
+WHERE 
+	start <= UNIX_TIMESTAMP(date(NOW())) AND
+	end >= UNIX_TIMESTAMP(date(NOW()))
+
+
+// bonus
+http://stackoverflow.com/questions/8680737/how-to-use-a-mysql-column-alias-for-calculations

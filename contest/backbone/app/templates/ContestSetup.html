@@ -1,0 +1,241 @@
+<div id="setup-wrapper">
+	<h1>Contest Setup</h1>
+	<form id="contestForm" onsubmit="false">
+		<div class="setup-row">
+			<div class="setup-row-point">1</div>
+			<div class="setup-row-left">Upload Logo</div>
+			<div class="setup-row-right <%= (logo) ? 'showed' : '' %>" style="position: relative;">
+				<div class="setup-coloumn">
+					<button class="select-image" type="button"></button>
+					
+					<input id="logo-img" type="file" style="display:none;" />
+					<input type="hidden" name="logo" value="<%= logo %>" />
+					
+					<div class="uploaded-image">
+						<div class="ajax-spin"></div>
+						<% if( logo ) { %>
+							<img src="<%= logo %>" title="Click to change image" />
+						<% } %>
+					</div>
+				</div>
+				<div class="setup-coloumn" style="font-size:11px;color:#a29e9e;padding-top:15px;padding-left:10px;">
+					Use transparent png or white background jpg
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		
+		<div class="setup-row">
+			<div class="setup-row-point">2</div>
+			<div class="setup-row-left">Select Contest Duration</div>
+			<div class="setup-row-right">
+				<div class="setup-date-field">
+					<input name="start" class="datepicker" type="text" placeholder="Start Date" pattern="(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d" value="<%= start %>" required  />
+				</div>
+				<div class="setup-date-field">
+					<input name="end" class="datepicker" type="text" placeholder="End Date" pattern="(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d" value="<%= end %>" required />
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		
+		<div class="setup-row">
+			<div class="setup-row-point">3</div>
+			<div class="setup-row-left">Contest Title</div>
+			<div class="setup-row-right">
+				<input name="title" type="text" class="setup-field-1" value="<%= title %>" required />
+				<div class="sub-label counter-limiter">
+					Character limit <strong>100</strong>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		
+		<div class="setup-row">
+			<div class="setup-row-point">4</div>
+			<div class="setup-row-left">Add a Prize</div>
+			<!-- row price multiple -->
+			<div id="fieldset-price">
+				<% _.each(prices, function(e,i){ var index = i + 1;  %>
+					<div id="row-price-<%= index %>" class="setup-row-right <%= (e.img) ? 'showed' : '' %>" style="position: relative;">
+						<div class="setup-coloumn">
+							<input name="prices[<%= i %>][title]" type="text" id="price-limiter-1" class="setup-field-2 input-price" placeholder="More than 1? Key in “5 Awesome” prize" value="<%= e.title %>" required />
+							<div id="price-counter-<%= index %>" class="sub-label-2 counter-limiter">
+								Character limit <strong>100</strong>
+							</div>
+						</div>
+						<div class="setup-image">
+							<button class="select-image" type="button"></button>
+							
+							<input id="price-img-<%= index %>" type="file" style="display:none;" />
+							<input type="hidden" name="prices[<%= i %>][img]" value="<%= e.img %>" required />
+							
+							<div class="uploaded-image">
+								<div class="ajax-spin"></div>
+								<% if( e.img ) { %>
+									<img src="<%= e.img %>" title="Click to change image" />
+								<% } %>
+							</div>
+							<div class="remove-upload-image">
+								<a href="#" class="delete" title="Delete price">Delete</a>
+							</div>
+						</div>
+						<% if(i == prices.length - 1) { %>
+							<div class="setup-add">
+								<a href="#">Add another prize (max 6)</a>
+							</div>
+						<% } %>
+						<div class="clear"></div>
+					</div>
+				<% }) %>
+			</div>
+			<!-- end row -->
+			<div class="clear"></div>
+		</div>
+		
+		<div class="setup-row">
+			<div class="setup-row-point">5</div>
+			<div class="setup-row-left">Contest Brief</div>
+			<div class="setup-row-right">
+				<textarea name="description" class="setup-textarea-1" placeholder="How to win?" required><%= description %></textarea>
+				<div class="sub-label counter-limiter">
+					Character limit <strong>400</strong>
+				</div>
+			</div>		
+			<div class="clear"></div>
+		</div>
+		
+		<div class="setup-row">
+			<div class="setup-row-point">6</div>
+			<div class="setup-row-left">How do contestants participate?</div>
+			<div class="setup-row-right"></div>
+			<div class="clear"></div>
+		</div>
+		
+		<div class="setup-row">
+			<div class="setup-row-point-sub"></div>
+			<div class="setup-row-left-sub">
+				<strong>(A)</strong> Select Contest Type
+			</div>
+			<div class="setup-row-right-sub">
+				<select name="meta[type]" id="contest-type" required>
+					<option>Choose</option>
+					<option value="quiz">Quiz</option>
+					<option value="purchase">Offline Purchase</option>
+				</select>
+			</div>
+			<div class="clear"></div>
+		</div>		
+		
+		<!-- Subscribes -->
+		<div class="setup-row">
+			<div class="setup-row-point-sub"></div>
+			<div class="setup-row-left-sub">
+				<strong>(B)</strong> Like Client's Facebook page
+			</div>
+			<div class="setup-row-right-sub">
+				<select name="meta[subscribes][facebook][type]" class="select-field-toggle">
+					<option value="1" <%= parseInt(meta.subscribes.facebook.type) ? 'selected' : '' %>>Yes</option>
+					<option value="0" <%= !parseInt(meta.subscribes.facebook.type) ? 'selected' : '' %>>No</option>
+				</select>
+				<input name="meta[subscribes][facebook][value]" type="url" class="setup-field-3" placeholder="Facebook URL" 
+					   <%= parseInt(meta.subscribes.facebook.type) ? 'value="'+ meta.subscribes.facebook.value +'" required' : 'style="display:none"'  %>/>
+			</div>
+			<div class="clear"></div>
+		</div>
+		
+		<div class="setup-row">
+			<div class="setup-row-point-sub"></div>
+			<div class="setup-row-left-sub">
+				<strong>(C)</strong> Subscribe to Youtube Channel
+			</div>
+			<div class="setup-row-right-sub">
+				<select name="meta[subscribes][youtube][type]" class="select-field-toggle">
+					<option value="1" <%= parseInt(meta.subscribes.youtube.type) ? 'selected' : '' %>>Yes</option>
+					<option value="0" <%= !parseInt(meta.subscribes.youtube.type) ? 'selected' : '' %>>No</option>
+				</select>
+				<input name="meta[subscribes][youtube][value]" type="text" class="setup-field-3" placeholder="Youtube Account" 
+					   <%= parseInt(meta.subscribes.youtube.type) ? 'value="'+ meta.subscribes.youtube.value +'" required' : 'style="display:none"'  %> />
+			</div>
+			<div class="clear"></div>
+		</div>
+		
+		<div class="setup-row">
+			<div class="setup-row-point-sub"></div>
+			<div class="setup-row-left-sub">
+				<strong>(D)</strong> Follow Twitter Page
+			</div>
+			<div class="setup-row-right-sub">
+				<select name="meta[subscribes][twitter][type]" class="select-field-toggle">
+					<option value="1" <%= parseInt(meta.subscribes.twitter.type) ? 'selected' : '' %>>Yes</option>
+					<option value="0" <%= !parseInt(meta.subscribes.twitter.type) ? 'selected' : '' %>>No</option>
+				</select>
+				<input name="meta[subscribes][twitter][value]" type="text" class="setup-field-3" placeholder="Twitter account" 
+					   <%= meta.subscribes.twitter.type ? 'value="'+ meta.subscribes.twitter.value +'" required' : 'style="display:none"'  %>/>
+			</div>
+			<div class="clear"></div>
+		</div>
+		
+		<div class="setup-row">
+			<div class="setup-row-point-sub"></div>
+			<div class="setup-row-left-sub">
+				<strong>(E)</strong> Connect on Google+
+			</div>
+			<div class="setup-row-right-sub">
+				<select name="meta[subscribes][google_plus][type]" class="select-field-toggle">
+					<option value="1" <%= parseInt(meta.subscribes.google_plus.type) ? 'selected' : '' %>>Yes</option>
+					<option value="0" <%= !parseInt(meta.subscribes.google_plus.type) ? 'selected' : '' %>>No</option>
+				</select>
+				<input name="meta[subscribes][google_plus][value]" type="url" class="setup-field-3" placeholder="URL" 
+					   <%= parseInt(meta.subscribes.google_plus.type) ? 'value="'+ meta.subscribes.google_plus.value +'" required' : 'style="display:none"'  %>/>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<!-- /subscribes -->
+		
+		<!-- Fields -->
+		<div class="setup-row">
+			<div class="setup-row-point-sub"></div>
+			<div class="setup-row-left-sub">
+				<strong>(F)</strong> Select Compulsory Fields
+			</div>
+			<div class="setup-row-right-sub" style="font-size:14px; color:#999898;line-height:250%;
+				width:40%;
+				-webkit-column-count:2;
+				   -moz-column-count:2;
+				        column-count:2">
+				<input name="meta[fields][]" type="checkbox" value="name" 	<%= (_.indexOf(meta.fields, 'name') > -1) 	? 'checked' : ''  %> /> Name<br />
+				<input name="meta[fields][]" type="checkbox" value="email" 	<%= (_.indexOf(meta.fields, 'email') > -1) 	? 'checked' : ''  %> /> Email<br />
+				<input name="meta[fields][]" type="checkbox" value="blog" 	<%= (_.indexOf(meta.fields, 'blog') > -1)    ? 'checked' : ''  %> /> Blog URL<br />
+				<input name="meta[fields][]" type="checkbox" value="contact" 	<%= (_.indexOf(meta.fields, 'contact') > -1) ? 'checked' : ''  %> /> Contact Number<br />
+				<input name="meta[fields][]" type="checkbox" value="address" 	<%= (_.indexOf(meta.fields, 'address') > -1) ? 'checked' : ''  %> /> Mailing Address<br />
+			</div>
+			<div class="clear"></div>
+		</div>
+		<!-- /fields -->
+		
+		<div class="setup-row">
+			<div class="setup-row-point">
+				7
+			</div>
+			<div class="setup-row-left">
+				Terms & Conditions
+			</div>
+			<div class="setup-row-right">
+				<span class="setup-row-right-sub">
+					<select id="toggle-tc" name="terms[type]">
+						<option <%= (terms.type == 'standard') ? 'selected' : '' %> value="standard">Standard</option>
+						<option <%= (terms.type == 'customize') ? 'selected' : '' %> value="customize">Customize</option>
+					</select> </span>
+			</div>
+			<div class="clear"></div>
+		</div>
+	
+		<div id="setup-tc">
+			<textarea name="terms[value]" <%= (terms.type == 'standard') ? 'readonly' : '' %> ><%= terms.value %></textarea>
+			<input type="submit" class="tc-update" value="save"/>
+			<p>Auto generate unique URL for download of XLS</p>
+		</div>
+	</form>
+</div>

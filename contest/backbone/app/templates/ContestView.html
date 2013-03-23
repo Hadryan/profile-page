@@ -1,0 +1,82 @@
+<div id="contest-admin-setting">
+	<div class="message">
+		<% if( !started ) { %>
+			<div class="alert">
+			  Theres no active contest right now. This contest will be started at <strong><%= start_date %></strong>
+			</div>
+		<% } %>
+	</div>
+	<div class="action">
+		<a href="#/contest/edit/<%= ID %>" class="edit">Edit</a>
+		<a href="#/contest/delete/<%= ID %>" class="delete">Delete</a>
+	</div>
+</div>
+<div class="clear"></div>
+<div id="contest-header">
+	<div id="client-logo">
+		<img src="<%= logo %>" width="124" height="98" alt="" />
+	</div>
+	<div id="contest-countdown">
+		<div id="contest-countdown-header">Giveaway <%= ( started ) ? 'Ends' : 'Start' %> in</div>
+		<div id="contest-countdown-body">
+			<div class="contest-countdown-coloum-1">
+				<div id="date-days" class="count-date">
+					<div class="ajax-spin"></div>
+				</div>
+				<p>Days</p>
+			</div>
+			<div class="contest-countdown-coloum-2">
+				<div id="date-hours"class="count-date">
+					<div class="ajax-spin"></div>
+				</div>
+				<p>Hours</p>
+			</div>
+			<div class="contest-countdown-coloum-3">
+				<div id="date-minutes" class="count-date">
+					<div class="ajax-spin"></div>
+				</div>
+				<p>Minutes</p>
+			</div>
+			<div class="contest-countdown-coloum-4">
+				<div id="date-seconds" class="count-date">
+					<div class="ajax-spin"></div>
+				</div>
+				<p>Seconds</p>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="clear"></div>
+</div>
+<h1><%= title %></h1>
+<div id="contest-banner">
+	<% _.each(prices, function(e,i) { %>
+		<div class="prize-border">
+			<div class="prize-border-top">
+				<img src="<%= baseUrl %>/contest/assets/img/price-border-top.jpg" width="111" height="9" alt="" />
+			</div>
+			<div class="prize-border-middle">
+				<img src="<%= e.img %>" width="89" height="78" alt="" />
+			</div>
+			<div class="prize-border-bottom">
+				<%= e.title %>
+			</div>
+		</div>
+	<% }) %>
+</div>
+<div id="contest-intro">
+	<h2>How to win?</h2>
+	<p><%= description %></p>
+</div>
+
+<div id="contest-content"></div>
+
+<div id="contest-bottom">
+	<div id="contest-message">
+		<!-- Your Answer is correct! -->
+	</div>
+	<div class="contest-bottom-right">
+		<a href="#/contest/step/2" class="next" disabled="disabled">Next</a>
+	</div>
+	<div class="clear"></div>
+</div>

@@ -1,0 +1,23 @@
+<h2>Step 1. Answer the Quiz Below</h2>
+<div id="quiz-box">
+	<div class="quiz-image-top">
+		<% if( thumbnail.type == 'pic') { %>
+			<img src="<%= thumbnail.value.pic.url %>" width="483" height="269" alt="" />
+		<% } else { %>
+			<link rel="stylesheet" href="<%= baseUrl %>/contest/assets/css/mediaelementplayer.min.css" />
+			<video width="483" height="269" poster="<%= thumbnail.value.video.img %>">
+				<source type="video/youtube" src="<%= thumbnail.value.video.url %>" />
+			</video>
+		<% } %>
+	</div>
+	<p><%= question %></p>
+	<ul>
+		<% _.each(choices, function(e,i){ %>
+			<% if( !_.isEmpty(e) ) { %>
+			<li>
+				<input name="choice" type="radio" value="<%= i %>" /> <%= e %>
+			</li>
+			<% } %>
+		<% }) %>
+	</ul>
+</div>

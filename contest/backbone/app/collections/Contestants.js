@@ -1,0 +1,33 @@
+// Collection Contestants.js
+// -------------------------
+define(["jquery", "backbone", "models/Contestant"],
+
+	function($, Backbone, Contestant) {
+		
+		var Contestants = Backbone.Collection.extend({
+			
+			model: Contestant,
+			
+			urlRoot: window.baseUrl + '/profile-page/api/profile/contestants',
+			
+			url: function(){
+				var base = window.baseUrl + '/profile-page/api/profile/contestants';
+      				options = this.options;
+      			return ( options.action ) ? base + '/' + options.action + '/' + options.value : base
+			},
+			
+			initialize: function( options ){
+				
+      			this.options = options || {}
+				
+				this.on('all', function( event ){
+					console.log('%c[COLLECTION Contestants]', 'background:#222; color:#bada55', "url :", this.url(), "event :", event)
+				})
+				
+			}
+		})
+		
+		return Contestants
+	}
+
+)
