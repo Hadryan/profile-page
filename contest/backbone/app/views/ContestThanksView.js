@@ -64,7 +64,7 @@ define(["jquery", "backbone", "utils", "models/Model", "collections/Collection",
 				var startDateObj = Utils.parseDate(this.model.get('start'), 'mm/dd/yyyy')
 					startDate = $.datepicker.formatDate(
 						'M, d yy', 
-						new Date(parseInt(startDateObj[0]), parseInt(startDateObj[1]), startDateObj[2]));
+						new Date(startDateObj[1], startDateObj[1], startDateObj[2]));
 						
 				FB.ui({
 					method: 'feed',

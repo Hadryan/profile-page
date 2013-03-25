@@ -345,9 +345,9 @@ window.Utils = {
 	},
 	
 	setCountdown: function( date, el, callback ){
-		var endDate = this.parseDate(date, 'mm/dd/yyyy');
+		var endDateObj = this.parseDate(date, 'mm/dd/yyyy');
 		
-		var date_end = new Date(endDate.join(',')),
+		var date_end = new Date(endDateObj[0], endDateObj[1], (endDateObj[2] + 1)), // + 1 day
 			date_now = new Date();
 			
 		var _seconds = Math.floor((date_end - (date_now))/1000),
@@ -376,7 +376,7 @@ window.Utils = {
 	  	// extract date-part indexes from the format
 	  	format.replace(/(yyyy|dd|mm)/g, function(part) { fmt[part] = i++; });
 	
-	  	return [parseInt(parts[fmt['yyyy']]), parseInt(parts[fmt['mm']]), parseInt(parts[fmt['dd']])]
+	  	return [parseInt(parts[fmt['yyyy']]), parseInt(parts[fmt['mm']]) - 1, parseInt(parts[fmt['dd']])]
 	}
 	
 }

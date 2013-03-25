@@ -1,6 +1,6 @@
 <?php
 // DB Config
-include 'config.php';
+include '../Config.php';
 // Core
 include 'vendor/autoload.php';
 include 'Exception.php';
