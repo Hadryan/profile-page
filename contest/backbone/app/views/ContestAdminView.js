@@ -20,6 +20,8 @@ define(["jquery", "backbone", "utils", "collections/Collection", "text!templates
     			
     			this.contests = options.contests
     			
+    			Utils.ajaxLoader.enable = false
+    			
 			},
 			
 			render: function(){
@@ -60,7 +62,7 @@ define(["jquery", "backbone", "utils", "collections/Collection", "text!templates
 					
 				parent.addClass('load')
 				
-				var contestant = this.contestants.at(cID)
+				var contestant = this.data.contestants.at(cID)
 				console.log(contestant)
 				
 				contestant.destroy({

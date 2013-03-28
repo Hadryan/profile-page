@@ -143,7 +143,7 @@ define(["jquery", "jquerylimiter", "utils", "bootstrap", "backbone", "models/Mod
 					    	$('input, textarea', this)
 								.map(function(i,e){
 									if( $(e).next().hasClass('counter-limiter') ) {
-										var textLimiter = ( this.type == 'text' ) ? self.textLimiter.text : self.textLimiter.desc
+										var textLimiter = ( this.type == 'text' ) ? self.textLimiter.text : 200
 										var counter = $(e).next().find('strong')
 										$(e).limiter(textLimiter, counter)
 									}

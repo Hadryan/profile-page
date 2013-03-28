@@ -14,6 +14,9 @@ define(["jquery", "backbone", "utils", "models/Model", "collections/Collection",
 				
 				console.log('ContestThanksView', this.model.toJSON() )
 				
+				
+				this.listenTo(this.model, 'destroy', this.remove);
+				
 			},
 			
 			render: function(){

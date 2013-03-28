@@ -98,7 +98,7 @@
 			<div class="setup-row-point">5</div>
 			<div class="setup-row-left">Contest Brief</div>
 			<div class="setup-row-right">
-				<textarea name="description" class="setup-textarea-1" placeholder="How to win?" required><%= description %></textarea>
+				<textarea name="description" class="setup-textarea-1" required><%= description %></textarea>
 				<div class="sub-label counter-limiter">
 					Character limit <strong>400</strong>
 				</div>
@@ -231,7 +231,6 @@
 			</div>
 			<div class="clear"></div>
 		</div>
-	
 		<div id="setup-tc">
 			<textarea name="terms[value]" <%= (terms.type == 'standard') ? 'readonly' : '' %> ><%= terms.value %></textarea>
 			<input type="submit" class="tc-update" value="save"/>

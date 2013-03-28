@@ -223,6 +223,8 @@ window.Utils = {
 	
 	ajaxLoader: {
 		
+		enable: true,
+		
 		init: function(){
 			this.el = Utils.defaults.loadingEl;
 			if( Utils.defaults.ajaxLoader == 'simple' ){
@@ -258,6 +260,8 @@ window.Utils = {
 		spin: function( Spinner ){
 			var target = document.querySelector(this.el);
 			var spinner = new Spinner(this.opts).spin(target);
+			
+			if( !this.enable ) return;
 			
 			$(target).ajaxStart(function(){ 
 				console.info('ajaxStart')

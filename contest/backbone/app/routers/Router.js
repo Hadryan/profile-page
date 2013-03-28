@@ -70,6 +70,11 @@ define(["jquery", "backbone", "utils",
             	var self = this
             	
             	this.getRecent(function(){
+            	
+	            	if( !_.isUndefined(window.user_value) ){
+	            		delete window.user_value
+	            	}
+	            	
         			console.log('contestLastest', this.model)
             		new ContestView({ model:this.model }).render()
             	})
@@ -89,7 +94,6 @@ define(["jquery", "backbone", "utils",
             },
             
             contestView: function( id ){
-            	
             	var model = new Model({ ID:id })			
 				model.fetch({
 					success: function( data ){	
@@ -124,16 +128,21 @@ define(["jquery", "backbone", "utils",
             },
             
             contestStep: function( step ){
+            	var self = this
             	
             	this.getRecent(function(){
             		if( this.model.isNew() )
             			self.navigate("#/contest")
 					else {
 						console.log( step )
-						if( step == 2 )
+						if( step == 2 && !_.isUndefined(window.user_value) ){
 							new ContestSubscribeView({ model:this.model  }).render()
-		            	else if( step == 3 )
+		            	} else if( step == 3 && !_.isUndefined(window.user_value) ) {
 		            		new ContestThanksView({ model:this.model }).render()
+		            	} else {
+		            		self.navigate("#/contest")
+		            	}
+		            		
 					}
 						
             	})

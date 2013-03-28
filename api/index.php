@@ -35,9 +35,12 @@ $app->get('/test/:hash', function($hash){
 	$res = array($ID, date('d m H:i:s', $now), date('d m H:i:s', $tommorrow), $tommorrow > $now);
 	*/
 
-	$glob = glob(API_UPLOAD_DIR . '/' . $hash . '_*');
+	$res = array(
+		'now' => date('m/d/Y', strtotime('now')),
+		'tomorrow' => date('m/d/Y', strtotime('tomorrow'))
+	);
 	
-	$json = json_encode($glob);
+	$json = json_encode($res);
     $cb = isset($_GET['callback']) ? $_GET['callback'] : false;
     if($cb) $json = "$cb($json)";
 	
@@ -250,6 +253,7 @@ $app->post('/upload', function() use ($imgDimensions) {
 	}
 });
 
+
 $app->get('/download/:hash', function($hash){
 	$app = Slim\Slim::getInstance();
 	
@@ -260,7 +264,17 @@ $app->get('/download/:hash', function($hash){
 		$id = substr($hash, -1);
 		$tommorrow = (int) substr($hash, 0, -1);
 		$now = strtotime('now');
-		
+		/*
+		$json = json_encode(array(
+			'id' => $id,
+			'now' => $now,
+			'tommorrow' => $tommorrow
+		));
+		$cb = isset($_GET['callback']) ? $_GET['callback'] : false;
+        if($cb) $json = "$cb($json)";
+        echo $json;
+		exit;
+		*/
 		if( $now > $tommorrow ) throw new ForbiddenException('Invalid request file');
 	
 		$data = Contests::getInstance()->getRecent($id);
@@ -464,16 +478,17 @@ $app->get('/download/:hash', function($hash){
 		/*
 		 * Format Excel 2007 (recomended)
 		 * .xlsx
-		 */
-		 
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 		header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"');
 		header('Cache-Control: max-age=0');
 		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 		$objWriter->save('php://output');
-		
-		//$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-		//$objWriter->save(API_DOWNLOAD_DIR . '/sample.xls');
+		 */
+		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+		$objWriter->save(API_DOWNLOAD_DIR . "/{$filename}.xls");
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"');
+		header('Cache-Control: max-age=0');
 		
 		/*
 		 * Format Excel5
@@ -481,7 +496,6 @@ $app->get('/download/:hash', function($hash){
 		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 		$objWriter->save(API_DOWNLOAD_DIR . '/sample.xls');
 		 */
-		
 	}
 	catch (ForbiddenException $e){
 		$app->halt(403, $e->getMessage());

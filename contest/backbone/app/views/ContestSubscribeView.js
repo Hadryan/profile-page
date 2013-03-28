@@ -17,6 +17,9 @@ define(["jquery", "backbone", "utils", "models/Contestant", "collections/Contest
 				this.contestant = new Contestant
 				console.log('ContestSubscribeView', this.model.toJSON(), this.contestant )
 				
+				
+				this.listenTo(this.model, 'destroy', this.remove);
+				
 			},
 			
 			render: function(){
@@ -38,18 +41,19 @@ define(["jquery", "backbone", "utils", "models/Contestant", "collections/Contest
 			/* show input textfield by combobox (YES/NO) */
 			toggleInput: function(e){
 				var target = e.currentTarget
-				$(target).next().fadeToggle('slow', function(){
-					if( $(this).is(':visible') ){
-						$(this).prop('required',true)
-					} else {
-						$(this).prop('required',false)
-					}
-					$(this).val('')
-				})
+				$(target).next()
+					.val('')
+					.fadeToggle('slow', function(){
+						if( $(this).is(':visible') && target.value == 1 ){
+							$(this).prop('required',true)
+						} else {
+							$(this).prop('required',false)
+						}
+					})
 			},
 			
 			doNextStep: function(e){
-				
+				var self = this
 				var data = $(e.currentTarget).toJSON()
 				
 				console.log(data)
@@ -60,6 +64,7 @@ define(["jquery", "backbone", "utils", "models/Contestant", "collections/Contest
 						console.info('Success')
 						console.log( resp )
 						// navigate to step 3
+						self.remove()
 						app.navigate('#/contest/step/3')
 					},
 					error: function( err ){
@@ -69,6 +74,12 @@ define(["jquery", "backbone", "utils", "models/Contestant", "collections/Contest
 				})
 				
 				return false
+			},
+			
+			remove: function() {
+			    this.$el.empty();
+			    this.undelegateEvents();
+			    return this;
 			}
 		})
 		

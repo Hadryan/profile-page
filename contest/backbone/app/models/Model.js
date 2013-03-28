@@ -101,7 +101,7 @@ define(["jquery", "backbone"],
 				},
 				terms: {
 					type:'standard',
-					value:'Terms & Conditions\nSweepstakes is open to any individual in Singapore with a valid mailing address. Limit one entry and prize per person, household, or e-mail address. The organizers reserve the right to change or add to the prizes and substitute them with a comparable alternative due to unforeseen circumstances or circumstances beyond their control.\n\nPrizes are non-transferable and no cash equivalent will be offered. Odds of winning depend on the number of eligible entries received. All terms and conditions of Facebook apply. This Sweepstakes is in no way sponsored, endorsed, or administered by, or associated with, Facebook. By submitting an entry, you understand that you are submitting your information to Sponsor and not to Facebook.'
+					value:'Terms & Conditions\r\n\r\nSweepstakes is open to any individual in Singapore with a valid mailing address. Limit one entry and prize per person, household, or e-mail address. The organizers reserve the right to change or add to the prizes and substitute them with a comparable alternative due to unforeseen circumstances or circumstances beyond their control.\r\n\r\nPrizes are non-transferable and no cash equivalent will be offered. Odds of winning depend on the number of eligible entries received. All terms and conditions of Facebook apply. This Sweepstakes is in no way sponsored, endorsed, or administered by, or associated with, Facebook. By submitting an entry, you understand that you are submitting your information to Sponsor and not to Facebook.'
 				}
             },
 

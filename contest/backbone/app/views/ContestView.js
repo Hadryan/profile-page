@@ -17,6 +17,8 @@ define(["jquery", "backbone", "mediaelement", "utils", "models/Model",
 			
 			initialize: function(){
 				console.log( this.model.toJSON() )
+				
+				this.listenTo(this.model, 'destroy', this.remove);
 			},
 			
 			render: function(){
@@ -73,7 +75,7 @@ define(["jquery", "backbone", "mediaelement", "utils", "models/Model",
 				// contest quiz
 				"change #quiz-box input[name='choice']" : "doAnswer",
 				// contest purchase text
-				"blur input[type=text]"					: "getUserValue",
+				"focusout input[name=user_value]"		: "getUserValue",
 				// contest purchase upload image
         		"click #image-upload .select-image" 	: "uploadImage",
         		"click .uploaded-image img"				: "uploadImage",
@@ -121,8 +123,15 @@ define(["jquery", "backbone", "mediaelement", "utils", "models/Model",
 			
 			getUserValue: function(e){
 				var value = e.currentTarget.value
+				
 				console.log(value)
-				window.user_value = value
+				
+				if( !_.isEmpty(value) ){
+					window.user_value = value
+					// remove attribute disabled on 'next' button
+					$('.contest-bottom-right a').removeAttr('disabled')
+				}
+				
 			},
 			
 			uploadImage: function(e){

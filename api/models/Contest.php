@@ -149,8 +149,8 @@ class Contests extends RestApiInterface
 			$recentContest = $this->db->one(
 				"SELECT ID FROM {$this->table_contests} 
 				 WHERE 
-				 	STR_TO_DATE(`start`, '%m/%d/%Y') BETWEEN  CURDATE( ) AND DATE_ADD(CURDATE( ),INTERVAL 7 DAY) AND
- 					STR_TO_DATE(`end`, '%m/%d/%Y') >= CURDATE( ) AND
+				 	STR_TO_DATE(`start`, '%m/%d/%Y') BETWEEN  CURDATE() AND DATE_ADD(CURDATE( ),INTERVAL 7 DAY) OR
+ 					STR_TO_DATE(`end`, '%m/%d/%Y') >= CURDATE() AND
 				 	user_id = :user_id", 
 				array('user_id' => $user_id));
 				
@@ -161,8 +161,10 @@ class Contests extends RestApiInterface
 		}
 		
 		$contest = $this->one( $id );
+		list($month, $day, $year) = explode('/', $contest['start']); 
+		$timeStamp = mktime(0, 0, 0, $month, $day, $year); 
 		$contest['contestants'] = Contestants::getInstance()->getAll($id);
-		$contest['started'] = ( 1363971600000 > strtotime('now 00:00:00') ) ? false : true ;
+		$contest['started'] = ( $timeStamp >= strtotime('now 00:00:00') ) ? false : true ;
 		// create download hash code
 		// tommorow timestamp + contest id
 		$contest['hash'] = strtotime('+1 day') . $id;

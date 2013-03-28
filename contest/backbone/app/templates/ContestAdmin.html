@@ -24,12 +24,12 @@
 			<% if( !_.isNull(contestants) ){ %>
 				<% _.each(contestants.toJSON(), function(e,i){ var index = i+1; var number = index.toString(); %> 
 			        <div class="download-table-body">
-			        	<div class="download-table-coloumn-1 column"><%= (number.length < 2) ? '0' + number : number %></div>
-			            <div class="download-table-coloumn-2 column"><%= e.name %></div>
-			            <div class="download-table-coloumn-3 column"><%= e.email %></div>
-			            <div class="download-table-coloumn-4 column"><%= e.country %></div>
-			            <div class="download-table-coloumn-5 column"><%= e.address %></div>
-			            <div class="download-table-coloumn-6 column" style="width:220px"><%= (e.blog) ? e.blog : 'N/A'  %></div>
+			        	<div class="download-table-coloumn-1 column text-elipsis"><%= (number.length < 2) ? '0' + number : number %></div>
+			            <div class="download-table-coloumn-2 column text-elipsis"><%= e.name %></div>
+			            <div class="download-table-coloumn-3 column text-elipsis"><%= e.email %></div>
+			            <div class="download-table-coloumn-4 column text-elipsis"><%= e.country %></div>
+			            <div class="download-table-coloumn-5 column text-elipsis"><%= e.address %></div>
+			            <div class="download-table-coloumn-6 column text-elipsis" style="width:220px"><%= (e.blog) ? e.blog : 'N/A'  %></div>
 			            <div class="download-table-coloumn-7 column">
 			            	<a href="#" class="delete" data-id="<%= i %>">Delete</a>
 			            </div>
