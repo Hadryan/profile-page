@@ -89,7 +89,7 @@ define(["jquery", "jquerylimiter", "utils", "bootstrap", "backbone", "models/Mod
 				// select combobox
 				"change #contest-type" 					: "showContestField",
 				"change .select-field-toggle" 			: "toggleInput",
-				"change input:radio.quiz-field" 		: "changeQuizField",
+				"change input:radio.radio-quiz" 		: "changeQuizField",
 				"change #choice-answer"					: "changeAnswer",
 				"change #select-identifier"				: "changeIndentifier",
 				"change #toggle-tc"						: "changeTerms",
@@ -97,9 +97,10 @@ define(["jquery", "jquerylimiter", "utils", "bootstrap", "backbone", "models/Mod
         		"keydown .input-price" 					: "addPriceByKey",
 				// button
         		"click .setup-add a"   					: "addPrice",
+        		"click .quiz_selection label"			: "changeQuizByLabel",
         		"click .setup-row .select-image"  		: "selectImage",
         		"click .uploaded-image img"  			: "selectImage",
-    			"click #setup-quiz-field .select-image" : "selectQuizImage",
+    			"click .quiz_image .select-image" 		: "selectQuizImage",
         		"click .remove-upload-image" 			: "removePrice",
         		"submit #contestForm"  					: "beforeSave"
         		//"click .tc-update"   : "saveContest"
@@ -184,11 +185,17 @@ define(["jquery", "jquerylimiter", "utils", "bootstrap", "backbone", "models/Mod
 			changeQuizField: function(e){
 				console.log(e.currentTarget.value)
 				if( e.currentTarget.value == 'video' ){
-					$('#setup-quiz-field').switchClass('pic','video')
+					$('#select_quiz_type').switchClass('pic','video',0)
 				} else {
-					$('#setup-quiz-field').switchClass('video','pic')
+					$('#select_quiz_type').switchClass('video','pic',0)
 				}
-				console.log($('#setup-quiz-field')[0])
+				console.log($('#select_quiz_type')[0])
+			},
+			
+			changeQuizByLabel: function(e){
+				var attr = $(e.currentTarget).attr('for')
+				console.log(attr)
+				$('input[type="radio"]', $('.'+attr)).click()
 			},
         	
         	/* 
@@ -427,7 +434,7 @@ define(["jquery", "jquerylimiter", "utils", "bootstrap", "backbone", "models/Mod
         	
         	selectImage: function(e){
         		var self 	  = this,
-        		  	rowImg    = $(e.currentTarget).parents('.setup-row-right'),
+        		  	parentRow = $(e.currentTarget).parents('.setup-row-right'),
         		  	inputFile = $('input[type="file"]',rowImg);
         		
         		console.log(inputFile[0])
@@ -438,14 +445,18 @@ define(["jquery", "jquerylimiter", "utils", "bootstrap", "backbone", "models/Mod
 				var eventListener = ( this.model.isNew() ) ? self.fileReaderOnly : self.fileReaderUpload
         		
         		// handle change eventListener, then do click (input file)
-        		inputFile.bind('change', { model:this.model, parent:rowImg[0], readEl:inputFile.siblings('.uploaded-image') }, eventListener).click()
+        		inputFile.bind('change', { 
+        			model:this.model, 
+        			parent:parentRow, 
+        			readEl:inputFile.siblings('.uploaded-image') 
+        		}, eventListener).click()
         	},
         	
         	selectQuizImage: function(e){
         		var self 	  = this,
 	        		wrapper   = $(e.currentTarget).parents('#setup-quiz-field'),
 	        		quizClass = wrapper.hasClass('pic') ? 'quiz-pic' : 'quiz-video',
-	        		rowImg    = $('.' + quizClass, wrapper),
+	        		parentRow = $('.' + quizClass, wrapper),
         		  	inputFile = $('input[type="file"]', rowImg);
 				
 				// define event listener by condition, 
@@ -457,7 +468,12 @@ define(["jquery", "jquerylimiter", "utils", "bootstrap", "backbone", "models/Mod
 	        		nameEl    = $('.img-name', rowImg);
         		  	
         		// handle change eventListener, then do click (input file)
-        		inputFile.bind('change', { model:this.model, parent:rowImg[0], readEl:readEl, nameEl:nameEl }, eventListener).click()
+        		inputFile.bind('change', { 
+        			model:this.model, 
+        			parent:parentRow, 
+        			readEl:readEl, 
+        			nameEl:nameEl 
+        		}, eventListener).click()
         	},
         	
         	/* upload the file image after selected, then read that image */
@@ -476,7 +492,7 @@ define(["jquery", "jquerylimiter", "utils", "bootstrap", "backbone", "models/Mod
         		reader.onerror = this.errorHandler
         		// create loading spin
         		reader.onloadstart = function(evt){
-        			$(parent).addClass('showed load')
+        			parent.addClass('showed load')
         		}
         		// set image selected
         		reader.onloadend = (function(file){
@@ -498,7 +514,8 @@ define(["jquery", "jquerylimiter", "utils", "bootstrap", "backbone", "models/Mod
 		        			
 		        			// show image in 1 sec
 		        			setTimeout(function(){
-		        				$(parent).removeClass('load')
+		        				// remove loading
+		        				parent.removeClass('load')
 		        				
 		        				// remove img its exists
 		        				if( $('img', readEl).length ){
@@ -561,7 +578,7 @@ define(["jquery", "jquerylimiter", "utils", "bootstrap", "backbone", "models/Mod
         		reader.onerror = this.errorHandler
         		// create loading spin
         		reader.onloadstart = function(evt){
-        			$(parent).addClass('showed load')
+        			parent.addClass('showed load')
         		}
         		// set image selected
         		reader.onloadend = (function(file){
@@ -574,7 +591,8 @@ define(["jquery", "jquerylimiter", "utils", "bootstrap", "backbone", "models/Mod
 	        			
 	        			// show image in 1 sec
 	        			setTimeout(function(){
-	        				$(parent).removeClass('load')
+	        				// remove loading
+	        				parent.removeClass('load')
 	        				
 	        				// remove img its exists
 	        				if( $('img', readEl).length ){

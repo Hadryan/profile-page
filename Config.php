@@ -1,7 +1,7 @@
 <?php
 defined('DBHOST') || define('DBHOST', 'localhost');
 defined('DBUSER') || define('DBUSER', 'root');
-defined('DBPASS') || define('DBPASS', 'root');
+defined('DBPASS') || define('DBPASS', '');
 defined('DBNAME') || define('DBNAME', 'backbone');
 
 defined('ABSPATH') || define('ABSPATH', dirname(__FILE__));

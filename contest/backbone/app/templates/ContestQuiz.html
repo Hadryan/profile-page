@@ -36,59 +36,56 @@
 		
 	</div>
 	
-	<div class="upload-recipe-content-wrapper">
-		<div class="recipe_selection">
+	<div class="upload-quiz-content-wrapper">
+		<div class="quiz_selection">
 			<div class="abc">
-				<input type="radio" value="photo" id="rdPhoto" name="aa" checked="">
+				<input type="radio" value="video" class="radio-quiz" name="meta[content][thumbnail][type]" <%= (quiz.thumbnail.type == 'video') ? 'checked' : '' %>>
 			</div>
-			<label for="rdPhoto">Yes</label>
+			<label for="abc">Yes</label>
 			<span>OR</span>
 			<div class="abc1">
-				<input type="radio" checked="checked" value="youtube" id="rdYoutube" name="aa">
+				<input type="radio" value="pic" class="radio-quiz" name="meta[content][thumbnail][type]" <%= (quiz.thumbnail.type == 'pic') ? 'checked' : '' %>>
 			</div>
-			<label for="rdYoutube"> No</label>
+			<label for="abc1"> No</label>
 		</div>
-		<div class="select_image">
-			<div class="sel_image" style="display: block;">
+		<div id="select_quiz_type" class="<%= (quiz.thumbnail.type == 'video') ? 'video' : 'pic' %>">
+			<div class="quiz_video arrow_box">
 				<div class="si-wrapper">
 					<div class="siw-title">
 						Please provide the Youtube Link URL
 					</div>
 					<div class="siw-field">
-						<input type="text" name="youtube" id="youtube" class="sfield" value="http://www.youtube.com/watch?v=VjnaBq6KVsI">
+						<input type="text" name="meta[content][thumbnail][value][video][url]" id="youtube" class="sfield" value="<%= quiz.thumbnail.value.video.url %>">
 					</div>
 				</div>
 			</div>
-			<div class="sel_image1" style="display: none;">
+			<div class="quiz_image arrow_box">
 				<div class="si-wrapper">
 					<div class="si1-left">
-						<div id="mainimage_container"><img src="http://local2.asiafoodrecipe.com/getimage/W140xH85/2012/04/B0056.jpg" id="addpost_mainimage_image" width="140" height="85" alt="Main Image">
-						</div>
-						<div id="mainimage_loading" style="display:none;" align="center"><img src="http://local2.asiafoodrecipe.com/wp-content/themes/recipe/images/loading.gif" width="16" height="16" alt="laoding">
-							<br>
-							Loading...
+						<div id="mainimage_container">
+							<img src="<%= quiz.thumbnail.value.pic.url %>" width="140" height="85" alt="Main Image">
 						</div>
 					</div>
-					<div class="si1-right">
+					<div class="si1-right setup-row-right">
 						<div class="si1r-top">
 							Select an image file on your computer.
 						</div>
 						<div class="si1r-field">
-							<input type="text" name="mainfilename2" value="" readonly="readonly" id="mainfilename2" class="s1tfield">
-							<input type="hidden" name="mainimage" value="http://local2.asiafoodrecipe.com/getimage/W140xH85/2012/04/B0056.jpg" id="mainimage">
+							<input type="text" name="meta[content][thumbnail][value][pic][name]" value="<%= quiz.thumbnail.value.pic.name %>" readonly="readonly" id="mainfilename2" class="s1tfield">
 						</div>
 						<div class="si1r-browse">
-							<input type="button" name="featuredimage2" id="featuredimage2" value="Browse" class="btn">
+							<input type="button" id="featuredimage2" value="Browse" class="select-image btn">
+							<input id="quiz-pic-img" type="file" style="display:none;" />
+							<input type="hidden" name="meta[content][thumbnail][value][pic][url]" value="<%= quiz.thumbnail.value.pic.url %>" />
 						</div>
-						<div class="si1r-bottom">
-							Eg. Pasta Salad With Roast Beef
-						</div>
+						<div class="si1r-bottom"></div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	
+	<!--
 	<div id="setup-quiz-field" class="control-group <%= (quiz.thumbnail.type == 'video') ? 'video' : 'pic' %>">
 		<div class="quiz-pic">
 			<div class="setup-row-left-sub" style="position: relative; text-align: center">
@@ -138,6 +135,7 @@
 			</div>
 		</div>
 	</div>
+	-->
 	<div class="control-group choices" style="margin-left: 20px;">
 		<h5 style="margin-bottom: 10px; font-weight: bold">Choices</h5>
 		<ul>
