@@ -362,7 +362,7 @@ button {
 
 #palete-border {
 	position:absolute;
-	top:42px;;
+	top:42px;
 	left:0px;
 }
 
@@ -416,7 +416,7 @@ button {
 	border:1px solid #ccc;
 	padding:20px 40px;
 	width:270px;
-	left:150px;;
+	left:150px;
 	top:40px;
 	float:left;
 	position:relative;
@@ -1666,7 +1666,7 @@ a#subscribe-banner-button:hover {
 #quiz-footer-left span {
 	margin-right:5px;
 	display:inline-block;
-	float:left;;
+	float:left;
 }
 
 #quiz-footer-middle {
@@ -1705,7 +1705,7 @@ a#subscribe-banner-button:hover {
 	text-indent:-9999px;
 	background:url(../img/ch-logo.jpg) no-repeat;
 	display:inline-block;
-	float:left;;
+	float:left;
 	margin-top:-3px;
 }
 
@@ -2079,7 +2079,7 @@ a#subscribe-banner-button:hover {
 
 #setup-tc textarea {
 	width:595px;
-	height:180px;;
+	height:180px;
 	border:1px solid #c0c0c0;
 	padding:10px;
 	margin-bottom:20px;
