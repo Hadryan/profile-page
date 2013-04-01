@@ -164,7 +164,7 @@ class Contests extends RestApiInterface
 		list($month, $day, $year) = explode('/', $contest['start']); 
 		$timeStamp = mktime(0, 0, 0, $month, $day, $year); 
 		$contest['contestants'] = Contestants::getInstance()->getAll($id);
-		$contest['started'] = ( $timeStamp >= strtotime('now 00:00:00') ) ? false : true ;
+		$contest['started'] = ( $timeStamp <= strtotime('now 00:00:00') ) ? true : false ;
 		// create download hash code
 		// tommorow timestamp + contest id
 		$contest['hash'] = strtotime('+1 day') . $id;

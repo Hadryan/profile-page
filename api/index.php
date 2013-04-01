@@ -17,6 +17,40 @@ Slim\Slim::registerAutoLoader();
 $app = new Slim\Slim();
 
 /*
+ * REST API Config
+ * 
+ * @param (String)name
+ * 
+ * @return JSON
+ */
+$app->get('/config', function(){
+	$app = Slim\Slim::getInstance();
+	
+	$debug = array(
+		'PATH' => array(
+			'ABSPATH' => ABSPATH,
+			'API_UPLOAD_DIR' => API_UPLOAD_DIR,
+			'API_UPLOAD_URL' => API_UPLOAD_URL,
+			'API_DOWNLOAD_DIR' => API_DOWNLOAD_DIR,
+			'API_DOWNLOAD_URL' => API_DOWNLOAD_URL,
+		),
+		'DB' => array(
+			'DBNAME' => DBNAME,
+			'DBUSER' => DBUSER,
+			'DBPASS' => DBPASS,
+			'DBHOST' => DBHOST
+		)
+	);
+	
+	$json = json_encode($debug);
+    $cb = isset($_GET['callback']) ? $_GET['callback'] : false;
+    if($cb) $json = "$cb($json)";
+	
+	$app->response()->header('Content-Type', 'application/json');
+    echo $json;
+});
+
+/*
  * REST API Test
  * 
  * @param (String)name

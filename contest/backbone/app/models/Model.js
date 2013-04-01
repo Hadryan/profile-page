@@ -9,11 +9,11 @@ define(["jquery", "backbone"],
         	
         	idAttribute: 'ID',
         	
-        	urlRoot: window.baseUrl + "/profile-page/api",
+        	urlRoot: APC.plugin_url + "/api",
         	
         	url: function(){
         		
-        		var base = window.baseUrl + "/profile-page/api/profile/contests";
+        		var base = APC.plugin_url + "/api/profile/contests";
         		var options = this.options;
         		
         		// GET  : get recent contest => http://{SERVER_HOST}/api/profile/contests/recent
@@ -57,8 +57,6 @@ define(["jquery", "backbone"],
 							value: {
 								video:{
 									url: '',
-									name: '',
-									img: APC.plugin_url + '/contest/images/default.gif'
 								},
 								pic: {
 									name: '',
@@ -70,8 +68,7 @@ define(["jquery", "backbone"],
 							a:'',
 							b:'',
 							c:'',
-							d:'',
-							e:''
+							d:''
 						},
 						answer: '',
 						force: {

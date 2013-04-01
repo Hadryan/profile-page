@@ -435,7 +435,8 @@ define(["jquery", "jquerylimiter", "utils", "bootstrap", "backbone", "models/Mod
         	selectImage: function(e){
         		var self 	  = this,
         		  	parentRow = $(e.currentTarget).parents('.setup-row-right'),
-        		  	inputFile = $('input[type="file"]',rowImg);
+        		  	inputFile = $('input[type="file"]',parentRow),
+        		  	readEl    = inputFile.siblings('.uploaded-image');
         		
         		console.log(inputFile[0])
 				
@@ -448,29 +449,29 @@ define(["jquery", "jquerylimiter", "utils", "bootstrap", "backbone", "models/Mod
         		inputFile.bind('change', { 
         			model:this.model, 
         			parent:parentRow, 
-        			readEl:inputFile.siblings('.uploaded-image') 
+        			readEl:readEl 
         		}, eventListener).click()
         	},
         	
         	selectQuizImage: function(e){
         		var self 	  = this,
-	        		wrapper   = $(e.currentTarget).parents('#setup-quiz-field'),
-	        		quizClass = wrapper.hasClass('pic') ? 'quiz-pic' : 'quiz-video',
-	        		parentRow = $('.' + quizClass, wrapper),
-        		  	inputFile = $('input[type="file"]', rowImg);
+	        		wrapper   = $(e.currentTarget).parents('.quiz_image'),
+	        		//quizClass = wrapper.hasClass('pic') ? 'quiz-pic' : 'quiz-video',
+	        		uploadedRow = $('.uploaded-image', wrapper),
+        		  	inputFile  = $('input[type="file"]', wrapper);
 				
 				// define event listener by condition, 
 				// if this action is add(new), the listener is fileReaderOnly
 				// otherwise (update), fileReaderUpload
 				var eventListener = ( this.model.isNew() ) ? self.fileReaderOnly : self.fileReaderUpload
         		  	
-	        	var	readEl    = $('.uploaded-image', rowImg),
-	        		nameEl    = $('.img-name', rowImg);
+	        	var	readEl    = uploadedRow,
+	        		nameEl    = $('input.s1tfield', wrapper);
         		  	
         		// handle change eventListener, then do click (input file)
         		inputFile.bind('change', { 
         			model:this.model, 
-        			parent:parentRow, 
+        			parent:uploadedRow, 
         			readEl:readEl, 
         			nameEl:nameEl 
         		}, eventListener).click()
@@ -481,7 +482,8 @@ define(["jquery", "jquerylimiter", "utils", "bootstrap", "backbone", "models/Mod
         		var target  = e.currentTarget,
         			parent  = e.data.parent,
         			model   = e.data.model,
-        			readEl  = e.data.readEl;
+        			readEl  = e.data.readEl,
+        			nameEl  = e.data.nameEl;
         			
         		console.log('fileReaderUpload', e)
         		
@@ -500,6 +502,7 @@ define(["jquery", "jquerylimiter", "utils", "bootstrap", "backbone", "models/Mod
         				
         				console.log('File', file, 'Target', target, 'evt', evt)
         				
+        				// upload utility Utils.js
         				Utils.upload(file, target.id, model, function(response){
         					
         					var $inputURL = $('#'+target.id).next();
@@ -523,8 +526,8 @@ define(["jquery", "jquerylimiter", "utils", "bootstrap", "backbone", "models/Mod
 		        				}
 		        				
 		        				// show file name in input text
-		        				if( e.data.nameEl ){
-		        					e.data.nameEl.val(file.name)
+		        				if( nameEl ){
+		        					nameEl.val(file.name)
 		        				}
 		        				
 		        				// append child
@@ -544,7 +547,8 @@ define(["jquery", "jquerylimiter", "utils", "bootstrap", "backbone", "models/Mod
         	fileReaderOnly: function(e){
         		var target  = e.currentTarget,
         			parent  = e.data.parent,
-        			readEl  = e.data.readEl;
+        			readEl  = e.data.readEl,
+        			nameEl  = e.data.nameEl;
         			
         		console.log('fileReaderOnly', e)
         		var file = e.target.files[0];
@@ -600,8 +604,8 @@ define(["jquery", "jquerylimiter", "utils", "bootstrap", "backbone", "models/Mod
 	        				}
 	        				
 	        				// show file name in input text
-	        				if( e.data.nameEl ){
-	        					e.data.nameEl.val(file.name)
+	        				if( nameEl ){
+	        					nameEl.val(file.name)
 	        				}
 	        				
 	        				// append child

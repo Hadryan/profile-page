@@ -8,10 +8,10 @@ define(["jquery", "backbone", "models/Contestant"],
 			
 			model: Contestant,
 			
-			urlRoot: window.baseUrl + '/profile-page/api/profile/contestants',
+			urlRoot: APC.plugin_url + '/api/profile/contestants',
 			
 			url: function(){
-				var base = window.baseUrl + '/profile-page/api/profile/contestants';
+				var base = this.urlRoot;
       				options = this.options;
       			return ( options.action ) ? base + '/' + options.action + '/' + options.value : base
 			},

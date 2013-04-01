@@ -12,8 +12,10 @@
 		</div>
 		-->
 		
-		<label style="font-size: 13px;position: absolute; top:10px; left:10px;">Question</label>
-		<input type="text" name="meta[content][question]" class="setup-field-border" placeholder="Why is brand X the best drink in the world ?" value="" required="" size="100%" style="padding-left: 55px;">
+		<label style="font-size: 13px;position: absolute; top:11px; left:23px;">Question</label>
+		<input type="text" name="meta[content][question]" class="setup-field-border" 
+			   placeholder="Why is brand X the best drink in the world ?" value="<%= quiz.question %>" required 
+			   style="width:90%; padding-left: 70px;">
 		<div class="sub-label counter-limiter">
 			Character limit <strong>100</strong>
 		</div>
@@ -49,6 +51,7 @@
 			<label for="abc1"> No</label>
 		</div>
 		<div id="select_quiz_type" class="<%= (quiz.thumbnail.type == 'video') ? 'video' : 'pic' %>">
+			<!-- quiz video -->
 			<div class="quiz_video arrow_box">
 				<div class="si-wrapper">
 					<div class="siw-title">
@@ -59,11 +62,13 @@
 					</div>
 				</div>
 			</div>
+			<!-- quiz image -->
 			<div class="quiz_image arrow_box">
 				<div class="si-wrapper">
 					<div class="si1-left">
-						<div id="mainimage_container">
-							<img src="<%= quiz.thumbnail.value.pic.url %>" width="140" height="85" alt="Main Image">
+						<div class="uploaded-image">
+							<div class="ajax-spin"></div>
+							<img src="<%= quiz.thumbnail.value.pic.url %>" width="140" height="85" alt="<%= quiz.thumbnail.value.pic.name %>">
 						</div>
 					</div>
 					<div class="si1-right setup-row-right">
@@ -71,11 +76,11 @@
 							Select an image file on your computer.
 						</div>
 						<div class="si1r-field">
-							<input type="text" name="meta[content][thumbnail][value][pic][name]" value="<%= quiz.thumbnail.value.pic.name %>" readonly="readonly" id="mainfilename2" class="s1tfield">
+							<input type="text" name="meta[content][thumbnail][value][pic][name]" value="<%= quiz.thumbnail.value.pic.name %>" readonly="readonly" class="s1tfield">
 						</div>
 						<div class="si1r-browse">
-							<input type="button" id="featuredimage2" value="Browse" class="select-image btn">
-							<input id="quiz-pic-img" type="file" style="display:none;" />
+							<input type="button" value="Browse" class="select-image btn">
+							<input type="file" id="quiz-pic-img" style="display:none;" />
 							<input type="hidden" name="meta[content][thumbnail][value][pic][url]" value="<%= quiz.thumbnail.value.pic.url %>" />
 						</div>
 						<div class="si1r-bottom"></div>

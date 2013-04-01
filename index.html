@@ -32,12 +32,9 @@
 
 		<script>
 			// get base URL
-			var l = window.location; var base_url = l.protocol + "//" + l.host;
-			if( l.host == 'localhost' ){
-				var p  = l.pathname; var sp = p.split('/'); var sn = sp[sp.length-1];
-				var base_url = l.protocol + "//" + l.host + p.replace(sn,'');
-				base_url = base_url.substring(0, base_url.length - 1)
-			}			
+			var l = window.location; 
+			var base_url = l.protocol + "//" + l.host + l.pathname;
+			base_url = base_url.substring(0, base_url.length - 1)
 			var APC = { plugin_url : base_url }
 		</script>
 		<script data-main="contest/backbone/app/config/Init" src="contest/backbone/libs/require.js"></script>

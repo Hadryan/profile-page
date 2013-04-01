@@ -119,7 +119,7 @@ require(["jquery", "utils", "spinner", "backbone", "routers/Router", "jqueryui",
 	})
 	
 	// Define base url
-	window.baseUrl = "http://localhost/backbone";
+	window.baseUrl = APC.plugin_url ;
 	
     // Instantiates a new Desktop Router instance
     window.app = new Router();

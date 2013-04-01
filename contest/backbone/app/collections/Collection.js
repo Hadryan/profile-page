@@ -8,7 +8,7 @@ define(["jquery","backbone","models/Model", "utils"],
     var Collection = Backbone.Collection.extend({
     	
       url: function(){
-      	var base = window.baseUrl + "/profile-page/api/profile/contests",
+      	var base = APC.plugin_url + "/api/profile/contests",
       		options = this.options
       	return ( options.action ) ? base + '/' + options.action + '/' + options.value : base
       },

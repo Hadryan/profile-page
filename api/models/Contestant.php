@@ -41,7 +41,7 @@ class Contestants extends RestApiInterface
 	public function getAll( $id )
 	{
 		$contestants = $this->db->all(
-			"SELECT ID, name, email, country, address, blog 
+			"SELECT ID, name, email, contact, country, address, blog 
 			 FROM {$this->table_contestants}
 			 WHERE contest_id = :ID",
 			array('ID' => $id)
@@ -66,8 +66,8 @@ class Contestants extends RestApiInterface
 		$placeholders = $this->_objectToArray($data);
 		
 		$this->db->execute("
-			INSERT INTO {$this->table_contestants} (contest_id, user_value, name, email, country, address, blog) 
-			VALUES (:contest_id, :user_value, :name, :email, :country, :address, :blog)", 
+			INSERT INTO {$this->table_contestants} (contest_id, user_value, name, email, contact, country, address, blog) 
+			VALUES (:contest_id, :user_value, :name, :email, :contact, :country, :address, :blog)", 
 			$placeholders);
 		
 		return $data;

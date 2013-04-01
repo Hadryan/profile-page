@@ -15,22 +15,24 @@
 				<div class="download-table-coloumn-1">No.</div>
 				<div class="download-table-coloumn-2">Name</div>
 				<div class="download-table-coloumn-3">Email</div>
-				<div class="download-table-coloumn-4">Country</div>
-				<div class="download-table-coloumn-5">Mailing Address</div>
-				<div class="download-table-coloumn-6">Blog URL</div>
-				<div class="download-table-coloumn-7"></div>
+				<div class="download-table-coloumn-4">Contact</div>
+				<div class="download-table-coloumn-5">Country</div>
+				<div class="download-table-coloumn-6">Mailing Address</div>
+				<div class="download-table-coloumn-7">Blog URL</div>
+				<div class="download-table-coloumn-8"></div>
 				<div class="clear"></div>
 			</div>
 			<% if( !_.isNull(contestants) ){ %>
 				<% _.each(contestants.toJSON(), function(e,i){ var index = i+1; var number = index.toString(); %> 
 			        <div class="download-table-body">
 			        	<div class="download-table-coloumn-1 column text-elipsis"><%= (number.length < 2) ? '0' + number : number %></div>
-			            <div class="download-table-coloumn-2 column text-elipsis"><%= e.name %></div>
-			            <div class="download-table-coloumn-3 column text-elipsis"><%= e.email %></div>
-			            <div class="download-table-coloumn-4 column text-elipsis"><%= e.country %></div>
-			            <div class="download-table-coloumn-5 column text-elipsis"><%= e.address %></div>
-			            <div class="download-table-coloumn-6 column text-elipsis" style="width:220px"><%= (e.blog) ? e.blog : 'N/A'  %></div>
-			            <div class="download-table-coloumn-7 column">
+			            <div class="download-table-coloumn-2 column text-elipsis"><%= (e.name) ? e.name : 'N/A'  %></div>
+			            <div class="download-table-coloumn-3 column text-elipsis"><%= (e.email) ? e.email : 'N/A'  %></div>
+			            <div class="download-table-coloumn-4 column text-elipsis"><%= (e.contact) ? e.contact : 'N/A'  %></div>
+			            <div class="download-table-coloumn-5 column text-elipsis"><%= e.country %></div>
+			            <div class="download-table-coloumn-6 column text-elipsis"><%= (e.address) ? e.address : 'N/A'  %></div>
+			            <div class="download-table-coloumn-7 column text-elipsis"><%= (e.blog) ? e.blog : 'N/A'  %></div>
+			            <div class="download-table-coloumn-8 column">
 			            	<a href="#" class="delete" data-id="<%= i %>">Delete</a>
 			            </div>
 			        	<div class="clear"></div>

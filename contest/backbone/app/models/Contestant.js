@@ -8,11 +8,11 @@ define(["jquery", "backbone"],
 			
 			idAttribute: 'ID',
 			
-			urlRoot: window.baseUrl + '/profile-page/api/profile/contestants',
+			urlRoot: APC.plugin_url + '/api/profile/contestants',
         	
         	url: function(){
         		
-        		var base = window.baseUrl + '/profile-page/api/profile/contestants';
+        		var base = this.urlRoot;
         		
         		// POST : save contest	=> http://{SERVER_HOST}/api/profile/contestants
         		if(this.isNew()) return base

@@ -72,6 +72,16 @@
 			</div>
 			<% } %>
 			
+			<% if( _.indexOf(meta.fields, 'contact') > -1 ) { %>
+			<div class="quizfield-row">
+				<div class="quizfield-row-left">Contact Number</div>
+				<div class="quizfield-row-right">
+					<input name="contact" type="text" class="quiz-textfield" required />
+				</div>
+				<div class="clear"></div>
+			</div>
+			<% } %>
+			
 			<div class="quizfield-row">
 				<div class="quizfield-row-left">Country</div>
 				<div class="quizfield-row-right">
@@ -102,7 +112,8 @@
 						<option value="1">Yes</option>
 						<option value="0">No</option>
 					</select>
-					<input name="blog" type="url" placeholder="Enter your Blog URL" class="quiz-textfield2" required />
+					<input name="blog" type="url" placeholder="Enter your Blog URL" class="setup-field-border" style="color: #000;" required="" size="62%">
+					<!--<input name="blog" type="url" placeholder="Enter your Blog URL" class="quiz-textfield2" required />-->
 				</div>
 				<div class="clear"></div>
 			</div>
